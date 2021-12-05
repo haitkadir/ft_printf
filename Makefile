@@ -39,7 +39,7 @@ fclean: clean
 re: fclean all
 
 compile: re $(NAME)
-	@$(CC) main.c -L. -lftprintf -L./libft/ -lft -g
+	@$(CC) main.c -L. -lftprintf -g
 	@./a.out | cat -e
 
 .PHONY: all clean fclean re compile

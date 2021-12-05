@@ -27,6 +27,7 @@ static void flags_checker(char c, t_args *args)
 
 static void formater(const char *frmt, va_list ap)
 {
+    printf("\ndebuger\n");
     t_args args;
     int i;
     
@@ -37,20 +38,11 @@ static void formater(const char *frmt, va_list ap)
         flags_checker(frmt[i++], &args);
     if (ft_isdigit(frmt[i]))
         args.width = ft_atoi(&frmt[i]);
-
-
-
-    printf("debuger: %c\n", frmt[i]);
-
-
-
-
-
-
-
-
-
-
+    while(ft_isdigit(frmt[i]))
+        i++;
+    if (frmt[i++] == '.')
+        args.precision = ft_atoi(&frmt[i]);
+    
 
     printf("hash %d\n", args.flags.hash);
     printf("minus %d\n", args.flags.minus);
@@ -59,6 +51,8 @@ static void formater(const char *frmt, va_list ap)
     printf("ziro %d\n", args.flags.ziro);
 
     printf("width %d\n", args.width);
+    printf("prec %d\n", args.precision);
+
 
     printf("%s", va_arg(ap, char *));
     
@@ -70,6 +64,7 @@ int ft_printf(const char *frmt, ...)
     va_list ap;
 
     // i = 0;
+    printf("\ndebuger\n");
     va_start(ap, frmt);
     formater(frmt, ap);
     va_end(ap);

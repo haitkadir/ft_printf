@@ -5,6 +5,6 @@ int main(void)
 {
 
 
-    ft_printf("%- +0#10.5s", "o");
+    ft_printf("world%d hello", "HSSAIN");
     // %[parameter][flags][width][.precision][length]type
 }
