@@ -16,7 +16,10 @@
 #include <unistd.h>
 #include <stdio.h>
 // Libft functions
+int ft_numlen(int n);
+int	ft_tolower(int c);
 int	    ft_isdigit(int c);
+int	    ft_isalpha(int c);
 char	*ft_itoa(int n);
 int     ft_atoi(const char *str);
 char	*ft_strchr(const char *s, int c);
@@ -34,17 +37,18 @@ typedef struct t_flags
 typedef struct t_args
 {
     int     width;
-    int     precision;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-    int     length;
+    int     precision;
     char    type;
     t_flags flags;
 }   t_args;
 /********Flags******/
-void ft_putchar(char c);
+int ft_putchar(char c);
 void    ft_putstr(char *s);
 void    ft_putnbr(int n);
 void    ft_itohup(int n);
 void    ft_itohlow(int n);
+
+int process_d(int argument, t_args args);
 int     ft_printf(const char *frmt, ...);
 
 #endif

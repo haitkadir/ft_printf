@@ -18,7 +18,9 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 
 
-SRC = ft_printf.c ./ft_utils/ft_printf_utils.c ./ft_utils/ft_strchr.c ./ft_utils/ft_atoi.c ./ft_utils/ft_isdigit.c
+SRC = ft_printf.c ./ft_utils/ft_printf_utils.c ./ft_utils/ft_strchr.c \
+	 ./ft_utils/ft_atoi.c ./ft_utils/ft_isdigit.c ./ft_utils/ft_isalpha.c \
+	 ./ft_utils/ft_numlen.c ft_process_d.c ./ft_utils/ft_tolower.c
 
 SRC_OBJECTS = $(SRC:%.c=%.o)
 
