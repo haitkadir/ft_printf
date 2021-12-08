@@ -17,17 +17,31 @@ int ft_putchar(char c)
     return (1);
 }
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
+    int i;
+
+    i = 0;
 	if (!s)
-		return ;
+		return (0);
 	while (*s)
+    {
 		write(1, &*s++, 1);
+        i++;
+    }
+    return (i);
 }
 
-void    ft_putnbr(int n)
+int  ft_putnbr(long n)
 {
-    ft_putstr(ft_itoa(n));
+    int i;
+    char *ptr;
+
+    i = 0;
+    ptr = ft_itoa(n);
+    i = ft_putstr(ptr);
+    free(ptr);
+    return (i);
 }
 
 void    ft_itohup(int n)

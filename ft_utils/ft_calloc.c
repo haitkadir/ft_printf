@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numlen.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 14:19:19 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/12/07 14:19:25 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/11/05 14:34:52 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/11/05 14:34:58 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../ft_printf.h"
 
-int ft_numlen(int n)
+void	*ft_calloc(size_t count, size_t size)
 {
-    int i;
-    
-    i = 0;
-    if(n == 0)
-        return (1);
-    if(n < 0)
-        i = 1;
-    while(n)
-    {
-        i++;
-        n = n / 10;
-    }
-    return (i);
+	char	*ptr;
+	size_t	i;
+
+	ptr = NULL;
+	ptr = (char *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	i = 0;
+	while (i < count * size)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return ((void *)ptr);
 }

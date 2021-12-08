@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static void process_data(t_args args, va_list **ap)
+static int process_data(t_args args, va_list **ap)
 {
-    // int len;
-    
+    int len;
+
+    len = 0;
     if (ft_tolower(args.type) == 'd' || ft_tolower(args.type))
     {
-        process_d(va_arg(*ap, int), args);
+        len = process_d(va_arg(*(*ap), int), args);
     }
+    return (len);
 }
 
 static void flags_checker(char c, t_args **args)
@@ -35,53 +37,59 @@ static void flags_checker(char c, t_args **args)
         (*args)->flags.space = 1;
 }
 
-static void manage_flags(const char *frmt, int *index, t_args *args)
+static int manage_flags(const char *frmt, int i, t_args *args)
 {
-    int i;
-    
-    i = 0;
-    while(ft_strchr("-+ 0#", frmt[i]))
+    while (ft_strchr("-+ 0#", frmt[i]))
         flags_checker(frmt[i++], &args);
     if (ft_isdigit(frmt[i]))
-        args -> width = ft_atoi(&frmt[i]);
-    while(ft_isdigit(frmt[i]))
+        args->width = ft_atoi(&frmt[i]);
+    while (ft_isdigit(frmt[i]))
         i++;
-    if (frmt[i++] == '.')
-        args -> precision = ft_atoi(&frmt[i]);
-    while(ft_isdigit(frmt[i]))
+    if (frmt[i] == '.')
+    {
         i++;
-    if(ft_isalpha(frmt[i]))
-        args -> type = frmt[i];
-     index += i;
+        args->precision = ft_atoi(&frmt[i]);
+    }
+    while (ft_isdigit(frmt[i]))
+        i++;
+    if (ft_isalpha(frmt[i]))
+        args->type = frmt[i];
+    return (i);
 }
 
-static void formater(va_list *ap, const char *frmt)
+static int formater(va_list *ap, const char *frmt)
 {
     int i;
+    int len;
     t_args args;
-    
-    i = 0;
-     while(frmt[i])
-     {
-       if (frmt[i] == '%' && frmt[i + 1] == '%')
-         ft_putchar(frmt[++i]);
-       else if (frmt[i] == '%' && frmt[i + 1] != '%')
-       {
-         manage_flags(&frmt[i], &i, &args);
-         process_data(args, &ap);
-       }
-       else
-         ft_putchar(frmt[i]);
-       i++; 
-     }
+
+    len = i = 0;
+    while (frmt[i])
+    {
+        ft_bzero(&args.flags, sizeof(args.flags));
+        ft_bzero(&args, sizeof(args));
+        if (frmt[i] == '%' && frmt[i + 1] == '%')
+            len += ft_putchar(frmt[++i]);
+        else if (frmt[i] == '%' && frmt[i + 1] != '%')
+        {
+            i = manage_flags(frmt, i + 1, &args);
+            len += process_data(args, &ap);
+        }
+        else
+            len += ft_putchar(frmt[i]);
+        i++;
+    }
+    return (len);
 }
 
 int ft_printf(const char *frmt, ...)
 {
+    int len;
     va_list ap;
 
+    len = 0;
     va_start(ap, frmt);
-    formater(frmt, &ap);
+    len += formater(&ap, frmt);
     va_end(ap);
-    return(0);
+    return (len);
 }

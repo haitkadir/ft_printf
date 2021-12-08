@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numlen.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 14:19:19 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/12/07 14:19:25 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/11/02 09:06:10 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/11/02 09:06:26 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../ft_printf.h"
 
-int ft_numlen(int n)
+size_t	ft_strlen(const char *s)
 {
-    int i;
-    
-    i = 0;
-    if(n == 0)
-        return (1);
-    if(n < 0)
-        i = 1;
-    while(n)
-    {
-        i++;
-        n = n / 10;
-    }
-    return (i);
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
 }
