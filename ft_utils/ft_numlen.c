@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "../ft_printf.h"
 
-int ft_numlen(int n)
+int ft_numlen(long n)
 {
     int i;
     
@@ -19,7 +19,7 @@ int ft_numlen(int n)
     if(n == 0)
         return (1);
     if(n < 0)
-        i = 1;
+        n *= (-1);
     while(n)
     {
         i++;

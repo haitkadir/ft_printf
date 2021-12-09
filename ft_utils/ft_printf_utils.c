@@ -38,6 +38,8 @@ int  ft_putnbr(long n)
     char *ptr;
 
     i = 0;
+    if (n < 0)
+        n *= -1;
     ptr = ft_itoa(n);
     i = ft_putstr(ptr);
     free(ptr);

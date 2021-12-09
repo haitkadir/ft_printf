@@ -11,81 +11,74 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-
-int process_d(long argument, t_args args)
+static int print_sign(t_args args, int argument)
 {
-
     int len;
-    char c;
-    int pre;
-    int width;
-    int negative;
 
     len = 0;
-    width = 0;
-    pre = 0;
-    negative = 0;
-
-    if (args.flags.ziro && args.flags.minus)
-        args.flags.ziro = 0;
-    if (args.flags.plus && args.flags.space)
-        args.flags.space = 0;
-    if (args.precision && args.flags.ziro)
-        args.flags.ziro = 0;
-
-    if (args.precision > ft_numlen(argument))
-    {
-        if(args.width > args.precision)
-            width = args.width - args.precision;
-        pre = args.precision - ft_numlen(argument);
-    }
-    else if(args.width > ft_numlen(argument))
-        width = args.width - ft_numlen(argument);
-    if (width && args.flags.plus)
-        width -= 1;
-
     if(argument < 0)
+        len += ft_putchar('-');
+    else if (args.flags.plus)
+        len += ft_putchar('+');
+    else if (args.flags.space)
+        len += ft_putchar(' ');
+    return (len);
+}
+
+static int print_precicion(int i)
+{
+    int len;
+
+    len = 0;
+    while(i--)
+        len += ft_putchar('0');
+    return (len);
+}
+
+static int print_width(int i, char c)
+{
+    int len;
+
+    len = 0;
+    while(i--)
+        len += ft_putchar(c);
+    return (len);
+}
+
+int process_d(int argument, t_args args)
+{
+    int len;
+    char rest;
+
+    len = 0;
+    rest = ' ';
+    if(!(args.precision) && !(args.flags.minus) && (args.flags.ziro))
+        rest = '0';
+    if(args.precision >= ft_numlen(argument))
+        args.precision -= ft_numlen(argument);
+    else
+        args.precision = 0;
+    if(args.width >= args.precision + ft_numlen(argument))
+        args.width -= (args.precision + ft_numlen(argument));
+    else
+        args.width = 0;
+    if(args.width && (argument < 0 || args.flags.plus || args.flags.space))
+        args.width -= 1;
+    
+    if (args.flags.minus)
     {
-        negative = 1;
-        argument *= (-1);
-        if(pre > ft_numlen(argument) + 1)
-            width++;
+        len += print_sign(args, argument);
+        len += print_precicion(args.precision);
+        len += ft_putnbr(argument);
+        len += print_width(args.width, rest);
     }
-
-    c = ' ';
-    if (args.flags.ziro)
-        c = '0';
-
-        if (!args.flags.minus)
-        {
-            if(negative && c == '0')
-                len += ft_putchar('-');
-            while(width--)
-                len += ft_putchar(c);
-            if(negative && c == ' ')
-                len += ft_putchar('-');
-            if (args.flags.plus && argument >= 0)
-                len += ft_putchar('+');
-            if (args.flags.space && argument >= 0)
-                len += ft_putchar(' ');
-            while (pre--)
-                len += ft_putchar('0');
-            len += ft_putnbr(argument);
-        }
-        else
-        {
-            if (args.flags.plus && argument >= 0)
-                len += ft_putchar('+');
-            if (args.flags.space && argument >= 0)
-                len += ft_putchar(' ');
-            while (pre--)
-                len += ft_putchar('0');
-            if(negative)
-                len += ft_putchar('-');
-            len += ft_putnbr(argument);
-            while(width--)
-                len += ft_putchar(c);
-        }
+    else
+    {
+        len += print_sign(args, argument);
+        len += print_width(args.width, rest);
+        len += print_precicion(args.precision);
+        len += ft_putnbr(argument);
+    }
 
     return (len);
 }

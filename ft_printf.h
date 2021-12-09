@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <stdio.h>
 // Libft functions
-int     ft_numlen(int n);
+int     ft_numlen(long n);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
@@ -53,7 +53,7 @@ int     ft_putnbr(long n);
 void    ft_itohup(int n);
 void    ft_itohlow(int n);
 
-int process_d(long argument, t_args args);
+int process_d(int argument, t_args args);
 int     ft_printf(const char *frmt, ...);
 
 #endif

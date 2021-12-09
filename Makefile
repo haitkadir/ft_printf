@@ -32,7 +32,7 @@ $(NAME): $(SRC_OBJECTS)
 all: $(NAME)
 
 %.o:%.c ft_printf.h
-	@$(CC) $(CFLAGS) -o $@ -c $<
+	@$(CC) -o $@ -c $<
 
 bonus: all
 
@@ -46,6 +46,6 @@ re: fclean all
 
 compile:
 	@$(CC) main.c $(SRC) -g
-	@./a.out | cat -e
+	@./a.out
 
 .PHONY: all clean fclean re compile
