@@ -16,7 +16,7 @@ static int process_data(t_args args, va_list **ap)
     int len;
 
     len = 0;
-    if (ft_tolower(args.type) == 'd' || ft_tolower(args.type))
+    if (ft_tolower(args.type) == 'd' || ft_tolower(args.type) == 'i')
     {
         len = process_d(va_arg(*(*ap), int), args);
     }
@@ -52,8 +52,10 @@ static int manage_flags(const char *frmt, int i, t_args *args)
     }
     while (ft_isdigit(frmt[i]))
         i++;
-    if (ft_isalpha(frmt[i]))
+    if (ft_strchr("cspdiuxX", frmt[i]))
         args->type = frmt[i];
+    else
+        return(-1);
     return (i);
 }
 
@@ -70,9 +72,11 @@ static int formater(va_list *ap, const char *frmt)
         ft_bzero(&args, sizeof(args));
         if (frmt[i] == '%' && frmt[i + 1] == '%')
             len += ft_putchar(frmt[++i]);
-        else if (frmt[i] == '%' && frmt[i + 1] != '%')
+        else if (frmt[i] == '%' &&  frmt[i + 1] != '%')
         {
             i = manage_flags(frmt, i + 1, &args);
+            if (i == -1)
+                return (i);
             len += process_data(args, &ap);
         }
         else

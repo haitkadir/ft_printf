@@ -6,10 +6,10 @@ int main(void)
 {
 int a;
 
-a = printf("\" %04d \"\n", -14);
+// a = printf("\" %n \"\n");
+// printf("%d\n", a);
+a = ft_printf("\" %45d \"\n");
 printf("%d\n", a);
-a = ft_printf("\" %04d \"\n", -14);
-printf("%d\n\n", a);
 
 // a = printf("\" %-1d \"\n", 0);
 // printf("%d\n", a);
