@@ -16,10 +16,12 @@ static int process_data(t_args args, va_list **ap)
     int len;
 
     len = 0;
-    if (ft_tolower(args.type) == 'd' || ft_tolower(args.type) == 'i')
-    {
+    if (args.type == 'd' || args.type == 'i')
         len = process_d(va_arg(*(*ap), int), args);
-    }
+    else if (args.type == 'u')
+        len = process_u(va_arg(*(*ap), unsigned int), args);
+    else if (ft_tolower(args.type) == 'x')
+        len = process_x(va_arg(*(*ap), unsigned int), args);
     return (len);
 }
 

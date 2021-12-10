@@ -47,13 +47,21 @@ typedef struct t_args
     t_flags flags;
 }   t_args;
 /********Flags******/
+/********Printing Flags Functions******/
+int print_sign(t_args args, int argument);
+int print_precicion(int i);
+int print_width(int i, char c);
+/********Printing Flags Functions******/
 int     ft_putchar(char c);
 int     ft_putstr(char *s);
-int     ft_putnbr(long n);
-void    ft_itohup(int n);
-void    ft_itohlow(int n);
+int     ft_put_unsigned_nbr(unsigned nb);
+int     ft_putnbr(int n);
+int     ft_puthexa(unsigned int n, char c);
 
 int process_d(int argument, t_args args);
+int process_u(unsigned int argument, t_args args);
+int process_x(unsigned int argument, t_args args);
+
 int     ft_printf(const char *frmt, ...);
 
 #endif

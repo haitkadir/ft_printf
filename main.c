@@ -8,8 +8,12 @@ int a;
 
 // a = printf("\" %n \"\n");
 // printf("%d\n", a);
-a = ft_printf("\" %45d \"\n");
+a = printf("\"%#x\"", 0);
 printf("%d\n", a);
+a = ft_printf("\"%#x\"", 0);
+printf("%d\n", a);
+// a = ft_printf("\" % 2.8u \"", 10);
+// printf("%d\n", a);
 
 // a = printf("\" %-1d \"\n", 0);
 // printf("%d\n", a);

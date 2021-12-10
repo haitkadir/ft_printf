@@ -32,58 +32,48 @@ int	ft_putstr(char *s)
     return (i);
 }
 
-int  ft_putnbr(long n)
+int	ft_putnbr(int nb)
 {
-    int i;
-    char *ptr;
+    int len;
 
-    i = 0;
-    if (n < 0)
-        n *= -1;
-    ptr = ft_itoa(n);
-    i = ft_putstr(ptr);
-    free(ptr);
-    return (i);
+    len = 0;
+	if (nb == -2147483648)
+	{
+		write(1, "2147483648", 10);
+        len += 10;
+	}
+	else if (nb >= 0 && nb <= 9)
+	{
+		len += ft_putchar(nb + '0');
+	}
+	else if (nb > 9 && nb <= 2147483647)
+	{
+		len += ft_putnbr(nb / 10);
+		len += ft_putnbr(nb % 10);
+	}
+	else if (nb < 0 && nb >= -2147483648)
+	{
+		len += ft_putnbr(nb * -1);
+	}
+    return (len);
 }
 
-void    ft_itohup(int n)
+int    ft_puthexa(unsigned int n, char c)
 {
-    long ln;
     char *base;
+    int len;
 
-    ln = (long)n;
-    base= "0123456789ABCDEF";
-    if(ln < 0)
+    len = 0;
+    if(c == 'X')
+        base= "0123456789ABCDEF";
+    else if (c == 'x')
+        base= "0123456789abcdef";
+    if (n >=0 && n < 16)
+        len += ft_putchar(base[n]);
+    else if (n > 15)
     {
-        ft_putchar('-');
-        ln = ln * -1;
+        len += ft_puthexa(n / 16, c);
+        len += ft_puthexa(n % 16, c);
     }
-    if (ln >=0 && ln < 16)
-        ft_putchar(base[ln]);
-    else if (ln > 15 && ln <= 2147483648)
-    {
-        ft_itohup(ln / 16);
-        ft_itohup(ln % 16);
-    }
-}
-
-void    ft_itohlow(int n)
-{
-    long ln;
-    char *base;
-
-    ln = (long)n;
-    base= "0123456789abcdef";
-    if(ln < 0)
-    {
-        ft_putchar('-');
-        ln = ln * -1;
-    }
-    if (ln >=0 && ln < 16)
-        ft_putchar(base[ln]);
-    else if (ln > 15 && ln <= 2147483648)
-    {
-        ft_itohlow(ln / 16);
-        ft_itohlow(ln % 16);
-    }
+    return (len);
 }

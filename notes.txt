@@ -1,0 +1,5 @@
+check files names in header comment.
+check useless conditions and remove them.
+how variadic functions works.
+understanding double pointers very well.
+understand structs and how to pass them to other functions and what's diffrence between "->" and ".".

@@ -1,33 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_process_d.c                                     :+:      :+:    :+:   */
+/*   ft_process_u.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 23:00:51 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/12/07 23:01:00 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/12/08 23:00:51 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/12/08 23:01:00 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
+static int   count_hexa(unsigned int n)
+{
+    int len;
 
-static void handler(t_args *args, int argument, char *rest)
+    len = 0;
+    if (n < 16)
+        len++;
+    else if (n > 15)
+    {
+        len += count_hexa(n / 16);
+        len += count_hexa(n % 16);
+    }
+    return (len);
+}
+
+static int put_prefix(char c)
+{
+    int len;
+
+    len = 0;
+    len += ft_putchar('0');
+    len += ft_putchar(c);
+    return (len);
+}
+
+static void handler(t_args *args, unsigned int argument, char *rest)
 {
     if(!(args->precision) && !(args->flags.minus) && (args->flags.ziro))
         *rest = '0';
-    if(args->precision >= ft_numlen(argument))
-        args->precision -= ft_numlen(argument);
+    if(args->precision >= count_hexa(argument))
+        args->precision -= count_hexa(argument);
     else
         args->precision = 0;
-    if(args->width >= args->precision + ft_numlen(argument))
-        args->width -= (args->precision + ft_numlen(argument));
+    if(args->width >= args->precision + count_hexa(argument))
+        args->width -= (args->precision + count_hexa(argument));
     else
         args->width = 0;
-    if(args->width && (argument < 0 || args->flags.plus || args->flags.space))
-        args->width -= 1;
 }
-int process_d(int argument, t_args args)
+int process_x(unsigned int argument, t_args args)
 {
     int len;
     char rest;
@@ -37,17 +59,19 @@ int process_d(int argument, t_args args)
     handler(&args, argument, &rest);
     if (args.flags.minus)
     {
-        len += print_sign(args, argument);
+        if(args.flags.hash && argument)
+            len += put_prefix(args.type);
         len += print_precicion(args.precision);
-        len += ft_putnbr(argument);
+        len += ft_puthexa(argument, args.type);
         len += print_width(args.width, rest);
     }
     else
     {
-        len += print_sign(args, argument);
+        if(args.flags.hash && argument)
+            len += put_prefix(args.type);
         len += print_width(args.width, rest);
         len += print_precicion(args.precision);
-        len += ft_putnbr(argument);
+        len += ft_puthexa(argument, args.type);
     }
     return (len);
 }
