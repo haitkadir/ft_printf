@@ -22,6 +22,10 @@ static int process_data(t_args args, va_list **ap)
         len = process_u(va_arg(*(*ap), unsigned int), args);
     else if (ft_tolower(args.type) == 'x')
         len = process_x(va_arg(*(*ap), unsigned int), args);
+    else if (args.type == 'p')
+        len = process_p(va_arg(*(*ap), unsigned long), args);
+    else if (args.type == 's')
+        len = process_s(va_arg(*(*ap), char *), args);
     return (len);
 }
 

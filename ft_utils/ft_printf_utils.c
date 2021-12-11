@@ -17,18 +17,15 @@ int ft_putchar(char c)
     return (1);
 }
 
-int	ft_putstr(char *s)
+int	ft_putnstr(char *s, int len_to_print)
 {
     int i;
 
     i = 0;
 	if (!s)
 		return (0);
-	while (*s)
-    {
-		write(1, &*s++, 1);
-        i++;
-    }
+	while (s[i] && len_to_print--)
+		write(1, &s[i++], 1);
     return (i);
 }
 

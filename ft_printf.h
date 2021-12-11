@@ -24,8 +24,6 @@ void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 int	    ft_tolower(int c);
 int	    ft_isdigit(int c);
-int	    ft_isalpha(int c);
-char	*ft_itoa(long n);
 int     ft_atoi(const char *str);
 char	*ft_strchr(const char *s, int c);
 // Libft functions
@@ -53,7 +51,7 @@ int print_precicion(int i);
 int print_width(int i, char c);
 /********Printing Flags Functions******/
 int     ft_putchar(char c);
-int     ft_putstr(char *s);
+int	    ft_putnstr(char *s, int len_to_print);
 int     ft_put_unsigned_nbr(unsigned nb);
 int     ft_putnbr(int n);
 int     ft_puthexa(unsigned int n, char c);
@@ -61,6 +59,8 @@ int     ft_puthexa(unsigned int n, char c);
 int process_d(int argument, t_args args);
 int process_u(unsigned int argument, t_args args);
 int process_x(unsigned int argument, t_args args);
+int process_p(unsigned long argument, t_args args);
+int process_s(char *argument, t_args args);
 
 int     ft_printf(const char *frmt, ...);
 

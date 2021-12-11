@@ -11,7 +11,24 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static int   count_hexa(unsigned int n)
+static int  ft_put_long_hexa(unsigned long n)
+{
+    char *base;
+    int len;
+
+    len = 0;
+    base= "0123456789abcdef";
+    if (n < 16)
+        len += ft_putchar(base[n]);
+    else if (n > 15)
+    {
+        len += ft_put_long_hexa(n / 16);
+        len += ft_put_long_hexa(n % 16);
+    }
+    return (len);
+}
+
+static int   count_hexa(unsigned long n)
 {
     int len;
 
@@ -36,42 +53,31 @@ static int put_prefix(char c)
     return (len);
 }
 
-static void handler(t_args *args, unsigned int argument, char *rest)
+static void handler(t_args *args, unsigned long argument)
 {
-    if(!(args->precision) && !(args->flags.minus) && (args->flags.ziro))
-        *rest = '0';
-    if(args->precision >= count_hexa(argument))
-        args->precision -= count_hexa(argument);
-    else
-        args->precision = 0;
-    if(args->width >= args->precision + count_hexa(argument))
-        args->width -= (args->precision + count_hexa(argument));
+    if(args->width >= count_hexa(argument) + 2)
+        args->width -= count_hexa(argument) + 2;
     else
         args->width = 0;
 }
-int process_x(unsigned int argument, t_args args)
+int process_p(unsigned long argument, t_args args)
 {
     int len;
-    char rest;
 
     len = 0;
-    rest = ' ';
-    handler(&args, argument, &rest);
+    handler(&args, argument);
     if (args.flags.minus)
     {
-        if(args.flags.hash && argument)
-            len += put_prefix(args.type);
-        len += print_precicion(args.precision);
-        len += ft_puthexa(argument, args.type);
-        len += print_width(args.width, rest);
+
+        len += put_prefix('x');
+        len += ft_put_long_hexa(argument);
+        len += print_width(args.width, ' ');
     }
     else
     {
-        if(args.flags.hash && argument)
-            len += put_prefix(args.type);
-        len += print_width(args.width, rest);
-        len += print_precicion(args.precision);
-        len += ft_puthexa(argument, args.type);
+        len += print_width(args.width, ' ');
+        len += put_prefix('x');
+        len += ft_put_long_hexa(argument);
     }
     return (len);
 }
