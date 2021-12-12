@@ -46,6 +46,7 @@ typedef struct t_args
 }   t_args;
 /********Flags******/
 /********Manage Flags*****************/
+int check_error(const char *frmt);
 int manage_flags(const char *frmt, int i, t_args *args);
 /********Manage Flags*****************/
 /********Printing Flags Functions******/
