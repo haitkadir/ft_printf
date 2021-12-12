@@ -23,7 +23,7 @@ SRC = ft_printf.c ./ft_utils/ft_printf_utils.c ./ft_utils/ft_strchr.c \
 	./ft_utils/ft_numlen.c ft_process_d.c ./ft_utils/ft_tolower.c \
 	./ft_utils/ft_calloc.c ./ft_utils/ft_strdup.c \
 	./ft_utils/ft_strlen.c ./ft_utils/ft_bzero.c ./ft_utils/ft_printf_utils_tow.c ft_process_u.c\
-	ft_process_x.c ft_process_p.c ft_process_s.c
+	ft_process_x.c ft_process_p.c ft_process_s.c ft_process_c.c ./ft_utils/ft_manage_flags.c
 
 SRC_OBJECTS = $(SRC:%.c=%.o)
 
@@ -46,7 +46,7 @@ fclean: clean
 re: fclean all
 
 compile:
-	@$(CC) main.c $(SRC) -g
+	@$(CC) $(CFLAGS) main.c $(SRC) -g
 	@./a.out
 
 .PHONY: all clean fclean re compile

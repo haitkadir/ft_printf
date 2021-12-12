@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_process_d.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 16:25:58 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/11/01 18:41:53 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/12/07 23:00:51 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/12/07 23:01:00 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-int	ft_isalpha(int c)
+int process_c(char argument, t_args args)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (1);
-	return (0);
+    int len;
+    if(args.width)
+        args.width -= 1;
+    len = 0;
+    if (args.flags.minus)
+    {
+        len += ft_putchar(argument);
+        len += print_width(args.width, ' ');
+    }
+    else
+    {
+        len += print_width(args.width, ' ');
+        len += ft_putchar(argument);
+    }
+    return (len);
 }

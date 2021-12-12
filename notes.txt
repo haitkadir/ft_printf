@@ -4,3 +4,4 @@ how variadic functions works.
 understanding double pointers very well.
 understand structs and how to pass them to other functions and what's diffrence between "->" and ".".
 handle many precisions.
+understand why we are passing int to va_arg when we need to get char.

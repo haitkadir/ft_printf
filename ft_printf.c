@@ -26,43 +26,9 @@ static int process_data(t_args args, va_list **ap)
         len = process_p(va_arg(*(*ap), unsigned long), args);
     else if (args.type == 's')
         len = process_s(va_arg(*(*ap), char *), args);
+    else if (args.type == 'c')
+        len = process_c(va_arg(*(*ap), int), args);
     return (len);
-}
-
-static void flags_checker(char c, t_args **args)
-{
-    if (c == '-')
-        (*args)->flags.minus = 1;
-    else if (c == '+')
-        (*args)->flags.plus = 1;
-    else if (c == '#')
-        (*args)->flags.hash = 1;
-    else if (c == '0')
-        (*args)->flags.ziro = 1;
-    else if (c == ' ')
-        (*args)->flags.space = 1;
-}
-
-static int manage_flags(const char *frmt, int i, t_args *args)
-{
-    while (ft_strchr("-+ 0#", frmt[i]))
-        flags_checker(frmt[i++], &args);
-    if (ft_isdigit(frmt[i]))
-        args->width = ft_atoi(&frmt[i]);
-    while (ft_isdigit(frmt[i]))
-        i++;
-    if (frmt[i] == '.')
-    {
-        i++;
-        args->precision = ft_atoi(&frmt[i]);
-    }
-    while (ft_isdigit(frmt[i]))
-        i++;
-    if (ft_strchr("cspdiuxX", frmt[i]))
-        args->type = frmt[i];
-    else
-        return(-1);
-    return (i);
 }
 
 static int formater(va_list *ap, const char *frmt)
@@ -71,7 +37,8 @@ static int formater(va_list *ap, const char *frmt)
     int len;
     t_args args;
 
-    len = i = 0;
+    i = 0;
+    len = 0;
     while (frmt[i])
     {
         ft_bzero(&args.flags, sizeof(args.flags));
@@ -81,8 +48,6 @@ static int formater(va_list *ap, const char *frmt)
         else if (frmt[i] == '%' &&  frmt[i + 1] != '%')
         {
             i = manage_flags(frmt, i + 1, &args);
-            if (i == -1)
-                return (i);
             len += process_data(args, &ap);
         }
         else
@@ -91,13 +56,73 @@ static int formater(va_list *ap, const char *frmt)
     }
     return (len);
 }
+static int check_minus(t_args args)
+{
+    if(args.flags.ziro && ft_strchr("csp", args.type))
+        return (1);
+    if(args.is_precision && ft_strchr("sdiuxX", args.type))
+        return (1);
+    if(args.flags.hash && !ft_strchr("xX", args.type))
+        return (1);
+    if(args.flags.space && !ft_strchr("sdi", args.type))
+        return (1);
+    if(args.flags.space && !ft_strchr("sdi", args.type))
+        return (1);
+    return (0);
+}
+static int check_incomptable_flags(const char *frmt)
+{
+    t_args args;
+    int i;
 
+    ft_bzero(&args.flags, sizeof(args.flags));
+    ft_bzero(&args, sizeof(args));
+    i = 0;
+    manage_flags(frmt, 0, &args);
+    if(args.type == 'd')
+        if(args.flags.hash)
+            return (1);
+    // else if(args.type == 's')
+}
+
+static int check_error(const char *frmt)
+{
+    int i;
+    int j;
+    int check_doubel_pre;
+    const char    *copy;
+
+    i = 0;
+    j = 0;
+    check_doubel_pre = 0;
+    copy = NULL;
+    while(frmt[i])
+    {
+        if(frmt[i] == '%')
+        {
+            copy = &frmt[i + 1];
+
+            while(ft_strchr(" -+#.0123456789", copy[j]))
+            {
+                if(copy[j] == '.')
+                    check_doubel_pre++;
+                j++;
+            }
+            if(!ft_strchr("cspdiuxX", copy[j]) || check_doubel_pre > 1)
+                return (1);
+        }
+        i++;
+    }
+    return (0);
+}
 int ft_printf(const char *frmt, ...)
 {
     int len;
     va_list ap;
 
     len = 0;
+    if(check_error(frmt))
+        return (-1);
     va_start(ap, frmt);
     len += formater(&ap, frmt);
     va_end(ap);

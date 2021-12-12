@@ -14,9 +14,9 @@
 
 static void handler(t_args *args, char *argument, int *len_to_print)
 {
-    if(args->precision && args->precision >= ft_strlen(argument))
+    if(args->is_precision && args->precision >= (int)ft_strlen(argument))
         *len_to_print = ft_strlen(argument);
-    else if(args->precision && args->precision < ft_strlen(argument))
+    else if(args->is_precision && args->precision < (int)ft_strlen(argument))
         *len_to_print = args->precision;
 
     if(args->width >= *len_to_print)
@@ -37,13 +37,11 @@ int process_s(char *argument, t_args args)
     handler(&args, argument, &len_to_print);
     if (args.flags.minus)
     {
-        len += print_sign(args, 0);
         len += ft_putnstr(argument, len_to_print);
         len += print_width(args.width, ' ');
     }
     else
     {
-        len += print_sign(args, 0);
         len += print_width(args.width, ' ');
         len += ft_putnstr(argument, len_to_print);
     }

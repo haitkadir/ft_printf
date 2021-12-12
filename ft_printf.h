@@ -20,8 +20,6 @@
 int     ft_numlen(long n);
 size_t	ft_strlen(const char *s);
 void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strdup(const char *s1);
 int	    ft_tolower(int c);
 int	    ft_isdigit(int c);
 int     ft_atoi(const char *str);
@@ -41,10 +39,15 @@ typedef struct t_args
 {
     int     width;
     int     precision;
+    int     is_precision;
+    int     error;
     char    type;
     t_flags flags;
 }   t_args;
 /********Flags******/
+/********Manage Flags*****************/
+int manage_flags(const char *frmt, int i, t_args *args);
+/********Manage Flags*****************/
 /********Printing Flags Functions******/
 int print_sign(t_args args, int argument);
 int print_precicion(int i);
@@ -61,6 +64,7 @@ int process_u(unsigned int argument, t_args args);
 int process_x(unsigned int argument, t_args args);
 int process_p(unsigned long argument, t_args args);
 int process_s(char *argument, t_args args);
+int process_c(char argument, t_args args);
 
 int     ft_printf(const char *frmt, ...);
 

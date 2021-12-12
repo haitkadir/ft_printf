@@ -6,13 +6,59 @@ int main(void)
 {
 int a;
 
+
+
+	// printf("\"% s\"\n", "");
+	// printf("\" % 1s\"\n", "");
+	// printf("\"% 1s \"\n", "");
+	// printf("\" % s \"\n", "");
+	// printf("\" % s \"\n", "-");
+	// printf("\" % s % s \"\n", "", "-");
+	// printf("\" % s % s \"\n", " - ", "");
+	// printf("\" % s % s % s % s \"\n", " - ", "", "4", "");
+	// printf("\" % s % s % s % s % s \"\n", " - ", "", "4", "", "2 ");
+    // printf("\n*************************************************************\n");
+	// ft_printf("\"% s\"\n", "");
+	// ft_printf("\" % 1s\"\n", "");
+	// ft_printf("\"% 1s \"\n", "");
+	// ft_printf("\" % s \"\n", "");
+	// ft_printf("\" % s \"\n", "-");
+	// ft_printf("\" % s % s \"\n", "", "-");
+	// ft_printf("\" % s % s \"\n", " - ", "");
+	// ft_printf("\" % s % s % s % s \"\n", " - ", "", "4", "");
+	// ft_printf("\" % s % s % s % s % s \"\n", " - ", "", "4", "", "2 ");
+
+
+
+	// printf("\"%-1c\"\n", '0');
+	// printf("\" %-2c \"\n", '0');
+	// printf("\" %-3c\"\n", '0' - 256);
+	// printf("\"%-4c \"\n", '0' + 256);
+	a = printf(" %d", 256);
+	// printf("\" %-1c %-2c %-3c \"\n", ' ', ' ', ' ');
+	// printf("\" %-1c %-2c %-3c \"\n", '1', '2', '3');
+	// printf("\" %-1c %-2c %-3c \"\n", '2', '1', 0);
+	// printf("\" %-1c %-2c %-3c \"\n", 0, '1', '2');
+    printf("%d\n", a);
+    printf("\n*************************************************************\n");
+	// ft_printf("\"%-1c\"\n", '0');
+	// ft_printf("\" %-2c \"\n", '0');
+	// ft_printf("\" %-3c\"\n", '0' - 256);
+	// ft_printf("\"%-4c \"\n", '0' + 256);
+	a = ft_printf(" %d", 256);
+	// ft_printf("\" %-1c %-2c %-3c \"\n", ' ', ' ', ' ');
+	// ft_printf("\" %-1c %-2c %-3c \"\n", '1', '2', '3');
+	// ft_printf("\" %-1c %-2c %-3c \"\n", '2', '1', 0);
+	// ft_printf("\" %-1c %-2c %-3c \"\n", 0, '1', '2');
+    printf("%d\n", a);
+
 // a = printf("\" %n \"\n");
 // printf("%d\n", a);
 
-a = printf("\"%.s\"", "-");
-printf("%d\n", a);
-a = ft_printf("\"%.s\"", "-");
-printf("%d\n", a);
+// a = printf("or\"% s\"", "hello");
+// printf("%d\n", a);
+// a = ft_printf("my\"% s\"", "hello");
+// printf("%d\n", a);
 // a = ft_printf("\" % 2.8u \"", 10);
 // printf("%d\n", a);
 
