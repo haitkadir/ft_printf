@@ -39,7 +39,7 @@ int manage_flags(const char *frmt, int i, t_args *args)
         i++;
         args->precision = ft_atoi(&frmt[i]);
     }
-    while (ft_isdigit(frmt[i]))
+    while (ft_isdigit(frmt[i]) || frmt[i] == '-')
         i++;
     if (ft_strchr("cspdiuxX", frmt[i]))
         args->type = frmt[i];

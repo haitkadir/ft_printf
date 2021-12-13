@@ -13,7 +13,7 @@
 
 static int is_compatible(t_args args)
 {
-    if(args.flags.ziro && !ft_strchr("csp", args.type))
+    if(args.flags.ziro && !ft_strchr("diuxX", args.type))
         return (1);
     if(args.is_precision && !ft_strchr("sdiuxX", args.type))
         return (1);
@@ -44,25 +44,16 @@ int check_error(const char *frmt)
     int i;
     int j;
     int check_doubel_pre;
-    const char    *copy;
 
     i = 0;
     j = 0;
     check_doubel_pre = 0;
-    copy = NULL;
-    while(frmt[i])
-        
-        if(frmt[i++] == '%')
-        {
-            copy = &frmt[i];
-
-            while(ft_strchr(" -+#.0123456789", copy[j]))
-                if(copy[j++] == '.')
-                    check_doubel_pre++;
-            if(!ft_strchr("cspdiuxX", copy[j]) || check_doubel_pre > 1)
-                return (1);
-        }
-    if(check_incompatible_flags(copy))
+    while(ft_strchr(" -+#.0123456789", frmt[j]))
+        if(frmt[j++] == '.')
+            check_doubel_pre++;
+    if(!ft_strchr("cspdiuxX", frmt[j]) || check_doubel_pre > 1)
+        return (1);
+    if(check_incompatible_flags(frmt))
         return (1);
     return (0);
 }

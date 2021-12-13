@@ -65,6 +65,7 @@ int ft_printf(const char *frmt, ...)
 
     len = 0;
     i = 0;
+    va_start(ap, frmt);
     while(frmt[i])
     {
         if(frmt[i] == '%' && frmt[i + 1] != '%')
@@ -72,9 +73,10 @@ int ft_printf(const char *frmt, ...)
             if(check_error(&frmt[i + 1]))
                 return (-1);
         }
+        else if(frmt[i] == '%' && frmt[i + 1] == '%')
+            i++;
         i++;
     }
-    va_start(ap, frmt);
     len += formater(&ap, frmt);
     va_end(ap);
     return (len);
