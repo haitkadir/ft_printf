@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 14:24:46 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/11/04 14:24:51 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/11/04 15:04:14 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/11/04 15:04:26 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-int	ft_tolower(int c)
+char	*ft_strchr(const char *s, int c)
 {
-	if (c >= 'A' && c <= 'Z')
-	{
-		return (c += 32);
-	}
-	return (c);
+	int		i;
+	char	*str;
+	char	ch;
+
+	str = (char *)s;
+	ch = (char)c;
+	i = 0;
+	while (str[i] && str[i] != ch)
+		i++;
+	if (str[i] == ch)
+		return (str + i);
+	else
+		return (0);
 }

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 15:51:42 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/11/02 15:51:46 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/11/01 20:12:40 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/11/01 20:12:45 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_isdigit(int c)
 {
-	char	*str;
-
-	str = (char *)s;
-	while (n > 0)
-	{
-		*str++ = '\0';
-		n--;
-	}
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	return (0);
 }

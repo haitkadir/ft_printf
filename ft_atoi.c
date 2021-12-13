@@ -9,7 +9,7 @@
 /*   Updated: 2021/11/05 11:11:37 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 static	int	ft_isspace(char c)
 {

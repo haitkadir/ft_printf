@@ -18,11 +18,10 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
 
 
-SRC = ft_printf.c ./ft_utils/ft_printf_utils.c ./ft_utils/ft_strchr.c \
-	./ft_utils/ft_atoi.c ./ft_utils/ft_isdigit.c ./ft_utils/ft_check_error.c \
-	./ft_utils/ft_numlen.c ft_process_d.c ./ft_utils/ft_tolower.c \
-	./ft_utils/ft_strlen.c ./ft_utils/ft_bzero.c ./ft_utils/ft_printf_utils_tow.c ft_process_u.c\
-	ft_process_x.c ft_process_p.c ft_process_s.c ft_process_c.c ./ft_utils/ft_manage_flags.c
+SRC = ft_atoi.c ft_bzero.c ft_check_error.c ft_isdigit.c ft_manage_flags.c\
+	ft_numlen.c ft_print_data.c ft_print_flags.c ft_printf.c ft_process_c.c\
+	ft_process_d.c ft_process_p.c ft_process_s.c ft_process_u.c\
+	ft_process_x.c ft_strchr.c ft_strlen.c ft_tolower.c
 
 SRC_OBJECTS = $(SRC:%.c=%.o)
 
@@ -32,7 +31,7 @@ $(NAME): $(SRC_OBJECTS)
 all: $(NAME)
 
 %.o:%.c ft_printf.h
-	@$(CC) -o $@ -c $<
+	@$(CC) $(CFLAGS) -o $@ -c $<
 
 bonus: all
 
@@ -45,7 +44,7 @@ fclean: clean
 re: fclean all
 
 compile: re
-	@$(CC) main.c $(SRC) -g
+	@$(CC) $(CFLAGS) main.c $(SRC) -g
 	@./a.out
 
-.PHONY: all clean fclean re compile
+.PHONY: all clean fclean re

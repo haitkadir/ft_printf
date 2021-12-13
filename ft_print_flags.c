@@ -1,32 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_process_c.c                                     :+:      :+:    :+:   */
+/*   ft_print_flags.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/07 23:00:51 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/12/07 23:01:00 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/12/03 16:05:07 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/12/03 16:05:10 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int	process_c(char argument, t_args args)
+int	print_sign(t_args args, int argument)
 {
 	int	len;
 
-	if (args.width)
-		args.width--;
 	len = 0;
-	if (args.flags.minus)
-	{
-		len += ft_putchar(argument);
-		len += print_width(args.width, ' ');
-	}
-	else
-	{
-		len += print_width(args.width, ' ');
-		len += ft_putchar(argument);
-	}
+	if (argument < 0)
+		len += ft_putchar('-');
+	else if (args.flags.plus)
+		len += ft_putchar('+');
+	else if (args.flags.space)
+		len += ft_putchar(' ');
+	return (len);
+}
+
+int	print_precicion(int i)
+{
+	int	len;
+
+	len = 0;
+	while (i--)
+		len += ft_putchar('0');
+	return (len);
+}
+
+int	print_width(int i, char c)
+{
+	int	len;
+
+	len = 0;
+	while (i--)
+		len += ft_putchar(c);
 	return (len);
 }

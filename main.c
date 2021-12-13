@@ -1,5 +1,6 @@
 #include "ft_printf.h"
 #include <limits.h>
+#include <stdio.h>
 // #include "./libft/libft.h"
 
 int main(void)
@@ -34,7 +35,7 @@ int a;
 	// printf("\" %-2c \"\n", '0');
 	// printf("\" %-3c\"\n", '0' - 256);
 	// printf("\"%-4c \"\n", '0' + 256);
-	a = printf("\"%-0s\"\n", "");
+	a = printf("\"%p\"\n", "hello");
 	// printf("\" %-1c %-2c %-3c \"\n", ' ', ' ', ' ');
 	// printf("\" %-1c %-2c %-3c \"\n", '1', '2', '3');
 	// printf("\" %-1c %-2c %-3c \"\n", '2', '1', 0);
@@ -45,7 +46,7 @@ int a;
 	// ft_printf("\" %-2c \"\n", '0');
 	// ft_printf("\" %-3c\"\n", '0' - 256);
 	// ft_printf("\"%-4c \"\n", '0' + 256);
-	a = ft_printf("\"%-0s\"\n", "");
+	a = ft_printf("\"%p\"\n", "hello");
 	// ft_printf("\" %-1c %-2c %-3c \"\n", ' ', ' ', ' ');
 	// ft_printf("\" %-1c %-2c %-3c \"\n", '1', '2', '3');
 	// ft_printf("\" %-1c %-2c %-3c \"\n", '2', '1', 0);

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: haitkadi <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 15:29:54 by haitkadi          #+#    #+#             */
-/*   Updated: 2021/11/05 15:30:12 by haitkadi         ###   ########.fr       */
+/*   Created: 2021/11/02 09:06:10 by haitkadi          #+#    #+#             */
+/*   Updated: 2021/11/02 09:06:26 by haitkadi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
-char	*ft_strdup(const char *s1)
+size_t	ft_strlen(const char *s)
 {
-	char	*ptr;
-	int		i;
+	size_t	i;
 
-	i = 0;
-	ptr = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
-	if (!ptr)
+	if (!s)
 		return (0);
-	while (s1[i])
+	i = 0;
+	while (s[i])
 	{
-		ptr[i] = s1[i];
 		i++;
 	}
-	ptr[i] = 0;
-	return (ptr);
+	return (i);
 }
