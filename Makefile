@@ -27,11 +27,13 @@ SRC_OBJECTS = $(SRC:%.c=%.o)
 
 $(NAME): $(SRC_OBJECTS)
 	@ar rcs $(NAME) $(SRC_OBJECTS)
+	@echo "Created your archive library $@"
 
 all: $(NAME)
 
 %.o:%.c ft_printf.h
 	@$(CC) $(CFLAGS) -o $@ -c $<
+	@echo "Created $@ from => $<"
 
 bonus: all
 
@@ -43,8 +45,8 @@ fclean: clean
 
 re: fclean all
 
-compile: re
+compile:
 	@$(CC) $(CFLAGS) main.c $(SRC) -g
 	@./a.out
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re
