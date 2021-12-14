@@ -45,15 +45,20 @@ int	check_error(const char *frmt)
 {
 	int	i;
 	int	j;
-	int	check_doubel_pre;
+	int	invalid_pre;
 
 	i = 0;
 	j = 0;
-	check_doubel_pre = 0;
+	invalid_pre = 0;
 	while (ft_strchr(" -+#.0123456789", frmt[j]))
-		if (frmt[j++] == '.')
-			check_doubel_pre++;
-	if (!ft_strchr("cspdiuxX", frmt[j]) || check_doubel_pre > 1)
+	{
+		if (frmt[j] == '.')
+			invalid_pre++;
+		if ((frmt[j] == '.') && !ft_strchr("0123456789cspdiuxX", frmt[j + 1]))
+			invalid_pre++;
+		j++;
+	}
+	if (!ft_strchr("cspdiuxX", frmt[j]) || invalid_pre > 1)
 		return (1);
 	if (check_incompatible_flags(frmt))
 		return (1);

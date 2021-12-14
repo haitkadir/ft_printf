@@ -11,27 +11,27 @@
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-static	int	process_data(t_args args, va_list **ap)
+static	int	process_data(t_args args, va_list ap)
 {
 	int	len;
 
 	len = 0;
 	if (args.type == 'd' || args.type == 'i')
-		len = process_d(va_arg(*(*ap), int), args);
+		len = process_d(va_arg(ap, int), args);
 	else if (args.type == 'u')
-		len = process_u(va_arg(*(*ap), unsigned int), args);
+		len = process_u(va_arg(ap, unsigned int), args);
 	else if (ft_tolower(args.type) == 'x')
-		len = process_x(va_arg(*(*ap), unsigned int), args);
+		len = process_x(va_arg(ap, unsigned int), args);
 	else if (args.type == 'p')
-		len = process_p(va_arg(*(*ap), unsigned long), args);
+		len = process_p(va_arg(ap, unsigned long), args);
 	else if (args.type == 's')
-		len = process_s(va_arg(*(*ap), char *), args);
+		len = process_s(va_arg(ap, char *), args);
 	else if (args.type == 'c')
-		len = process_c(va_arg(*(*ap), int), args);
+		len = process_c(va_arg(ap, int), args);
 	return (len);
 }
 
-static	int	formater(va_list *ap, const char *frmt)
+static	int	formater(va_list ap, const char *frmt)
 {
 	int		i;
 	int		len;
@@ -48,7 +48,7 @@ static	int	formater(va_list *ap, const char *frmt)
 		else if (frmt[i] == '%' && frmt[i + 1] != '%')
 		{
 			i = manage_flags(frmt, i + 1, &args);
-			len += process_data(args, &ap);
+			len += process_data(args, ap);
 		}
 		else
 			len += ft_putchar(frmt[i]);
@@ -65,7 +65,6 @@ int	ft_printf(const char *frmt, ...)
 
 	len = 0;
 	i = 0;
-	va_start(ap, frmt);
 	while (frmt[i])
 	{
 		if (frmt[i] == '%' && frmt[i + 1] != '%')
@@ -77,7 +76,8 @@ int	ft_printf(const char *frmt, ...)
 			i++;
 		i++;
 	}
-	len += formater(&ap, frmt);
+	va_start(ap, frmt);
+	len += formater(ap, frmt);
 	va_end(ap);
 	return (len);
 }

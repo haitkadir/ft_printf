@@ -10,13 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
-
 
 SRC = ft_atoi.c ft_bzero.c ft_check_error.c ft_isdigit.c ft_manage_flags.c\
 	ft_numlen.c ft_print_data.c ft_print_flags.c ft_printf.c ft_process_c.c\
@@ -45,8 +43,8 @@ fclean: clean
 
 re: fclean all
 
-compile:
+compile: all
 	@$(CC) $(CFLAGS) main.c $(SRC) -g
 	@./a.out
 
-.PHONY: all bonus clean fclean re
+.PHONY: all bonus clean fclean re compile

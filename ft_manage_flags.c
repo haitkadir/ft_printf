@@ -36,10 +36,9 @@ int	manage_flags(const char *frmt, int i, t_args *args)
 	if (frmt[i] == '.')
 	{
 		args->is_precision = 1;
-		i++;
-		args->precision = ft_atoi(&frmt[i]);
+		args->precision = ft_atoi(&frmt[++i]);
 	}
-	while (ft_isdigit(frmt[i]) || frmt[i] == '-')
+	while (ft_isdigit(frmt[i]))
 		i++;
 	if (ft_strchr("cspdiuxX", frmt[i]))
 		args->type = frmt[i];
