@@ -44,7 +44,7 @@ fclean: clean
 re: fclean all
 
 compile: all
-	@$(CC) $(CFLAGS) main.c $(SRC) -g
+	@$(CC) $(CFLAGS) main.c -L. -lftprintf
 	@./a.out
 
 .PHONY: all bonus clean fclean re compile
