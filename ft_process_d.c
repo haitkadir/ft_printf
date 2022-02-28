@@ -44,11 +44,11 @@ int	process_d(int argument, t_args args)
 	}
 	else
 	{
-		if (args.width && args.flags.ziro)
-			len += print_sign(args, argument);
-		len += print_width(args.width, rest);
 		if (args.width && !args.flags.ziro)
-			len += print_sign(args, argument);
+			len += print_width(args.width, rest);
+		len += print_sign(args, argument);
+		if (args.width && args.flags.ziro)
+			len += print_width(args.width, rest);
 		len += print_precicion(args.precision);
 		len += ft_putnbr(argument);
 	}
